@@ -4,7 +4,7 @@ A checkout sketch for the Mod-1016v6 using I2C for Arduino Yun.
 ## Overview
 Nothing groundbreaking, just a working example. 
 
-
+![MOD-1016 Overview](/images/Yun-I2C-MOD-1016v6-Example.jpg)
 
 ## Design Notes
 I prefer to use I2C because it simplifies the wiring when connecting multiple devices but the libraries and examples I found were written for SPI. I also prefer the Yun over other Arduinos because the wireless bridge makes it easy to test and troubleshoot.
@@ -27,7 +27,8 @@ When powered by 5V this device seems reluctant to generate any interrupts. Using
 Thanks also to Adafruit for their I2C library examples.
 
 ## Output
-```Unable to connect: retrying (1)... connected!
+```
+Unable to connect: retrying (1)... connected!
 >Hello World!
 >Hello MOD-1016v6!
 >Auto Tune
@@ -61,4 +62,5 @@ reg 76543210
 0x8 00000100
 >Listening
 23903 INT_NH Noise level too high
-30259 INT_D  Disturber detected```
+30259 INT_D  Disturber detected
+```
