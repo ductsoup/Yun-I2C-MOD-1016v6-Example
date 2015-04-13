@@ -1,6 +1,6 @@
 //
 // 2015-04-12
-// Checkout sketch for MOD-1016v6 lightning sensor 
+// Checkout sketch for MOD-1016v6 lightning sensor
 // Written by ductsoup, public domain
 //
 
@@ -186,7 +186,7 @@ void write_bit(uint8_t reg, uint8_t mask, uint8_t x) {
 // Read registers 0x00 through 0x08 for debugging purposes
 void dump_regs(void) {
   int i, j, x;
-  emitln();
+  emitln(">Registers");
   emitln("reg 76543210");
   emitln("--- --------");
   for (i = 0 ; i <= 0x08 ; i++) {
@@ -202,7 +202,6 @@ void dump_regs(void) {
     emitln();
   }
   i2c_stop();
-  emitln();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,12 +344,14 @@ void setTune(uint8_t val) {
 }
 
 // Set the annenna tuning capacitor value automatically
+// https://github.com/raivisr/AS3935-Arduino-Library/blob/master/AS3935/AS3935.cpp
 // Note: changed to 1000Ms sample for a more reliable result
 bool tuneAntenna(void) {
   int target = 3125, currentcount = 0, bestdiff = 32000, currdiff = 0;
   byte bestTune = 0, currTune = 0;
   unsigned long setUpTime;
   int currIrq, prevIrq;
+  emitln(">Auto Tune");
   // set lco_fdiv divider to 0, which translates to 16
   // so we are looking for 31250Hz on irq pin
   // and since we are counting for 100ms that translates to number 3125
@@ -397,7 +398,7 @@ bool tuneAntenna(void) {
 }
 
 bool begin(uint8_t val = 1) {
-  
+
   bool ret;
 
   i2c_init();
@@ -405,16 +406,17 @@ bool begin(uint8_t val = 1) {
   i2c_stop();
   if (ret) {
     emitln(">Hello MOD-1016v6!");
+    presetDefault();
     // Calibrate the AS3935
-    delay(11); 
+    delay(11);
     tuneAntenna();
     calibrateRCO();
-    if (val) 
+    if (val)
       setIndoors();
     else
       setOutdoors();
   } else {
-    emitln(F("Device didn't respond"));
+    emitln(F(">Device didn't respond"));
   }
   return ret;
 }
@@ -427,16 +429,16 @@ void setup() {
   Bridge.begin();
   Console.begin();
   while (!Console);
-//  delay(5000);
 #else
   Serial.begin(115200);
   while (!Serial);
 #endif
+  delay(1000);
   emitln(">Hello World!");
 
   // MOD-1016v6
   if (!begin())
-    while(1);
+    while (1);
 
   //
   // Enable pin change interrupt
@@ -448,14 +450,13 @@ void setup() {
   PCIFR  |= bit (digitalPinToPCICRbit(INT_PIN)); // clear any outstanding interrupt
   PCICR  |= bit (digitalPinToPCICRbit(INT_PIN)); // enable interrupt for the group
 
-  emitln(">Registers");
   dump_regs();
   emitln(">Listening");
 }
 
 void loop() {
   if (event) {
-    emit(millis()); 
+    emit(millis());
     if (int_event == 0x00) {
       emit(" INT    Distance was updated to ");
       emit(getDistance(true));
