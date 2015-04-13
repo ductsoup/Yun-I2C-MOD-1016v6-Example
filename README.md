@@ -13,6 +13,8 @@ The AS3935 requires I2C repeated start command and the Arduino wire library can'
 
 When powered by 5V this device seems reluctant to generate any interrupts. Using 3.3V from the Yun works much better.
 
+I included the antenna tuning method from raivisr to confirm the EA tuning on the package. It was in the ballpark but hopped around. Bumping the frequency sample interval to 1s it settles down nicely and almost always agrees with the EA suggested setting.
+
 ## Links and Credits
 [Embedded Adventures Lightning Sensor Module](http://www.embeddedadventures.com/as3935_lightning_sensor_module_mod-1016.html)
 
