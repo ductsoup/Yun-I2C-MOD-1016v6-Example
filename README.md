@@ -26,7 +26,7 @@ I included the antenna tuning method from raivisr to confirm the EA tuning on th
 
 [Simple Pin Change Interrupt on all pins](http://playground.arduino.cc/Main/PinChangeInterrupt)
 
-Thanks also to Adafruit for their I2C library examples.
+Thanks also to [Adafruit](https://github.com/search?utf8=%E2%9C%93&q=adafruit) for their I2C library examples.
 
 ## Output
 ```
