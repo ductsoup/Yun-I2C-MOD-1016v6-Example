@@ -28,7 +28,7 @@ I included the antenna tuning method from raivisr to confirm the EA tuning on th
 
 Thanks also to [Adafruit](https://github.com/search?utf8=%E2%9C%93&q=adafruit) for their I2C library examples.
 
-## Output
+## Output (perturbed with a piezoelectric grill lighter)
 ```
 Unable to connect: retrying (1)... connected!
 >Hello World!
